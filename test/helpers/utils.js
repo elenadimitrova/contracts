@@ -159,6 +159,7 @@ export async function deposit(
   } else {
     depositBlockId = '0x' + crypto.randomBytes(32).toString('hex')
   }
+  console.log('here 1')
   // ACLed on onlyOwner
   const deposit = await childChain.onStateReceive(
     '0xa' /* dummy id */,
@@ -169,6 +170,7 @@ export async function deposit(
       depositBlockId
     )
   )
+  console.log('here 2')
   if (options.writeToFile) {
     await writeToFile(options.writeToFile, deposit.receipt)
   }
@@ -410,4 +412,12 @@ export function increaseBlockTime(seconds) {
     params: [seconds],
     id: new Date().getTime()
   })
+}
+
+export function filterEvent(events, event) {
+  const index = events.findIndex(e => {
+    return e.event === event
+  })
+  if (index === -1) throw new Error(`${event} not found in given events`)
+  return index
 }
