@@ -23,6 +23,13 @@ module.exports = {
       port: 8546,
       network_id: '*' // match any network
     },
+    coverage: {
+      host: "localhost",
+      network_id: "15002",
+      port: 8555,         // <-- If you change this, also set the port option in .solcover.js.
+      gasPrice: 0x01,     // <-- Use this low gas price
+      skipDryRun: true
+    },
     ropsten: {
       provider: () =>
         new HDWalletProvider(
